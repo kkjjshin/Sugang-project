@@ -1,7 +1,7 @@
 package sugang;
 
 public class Schedule {
-	//나의 시간표 보여주기
+	// 나의 시간표 보여주기
 	public void showTimetable() {};
 	
 	//DB 설명
