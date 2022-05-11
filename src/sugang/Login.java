@@ -8,4 +8,7 @@ public class Login {
 	//DB설명
 		// 학생 ID/PW (2~3명 지정)
 		// 교수 ID/PW (2명 지정)
-}
+	
+
+	}
+
