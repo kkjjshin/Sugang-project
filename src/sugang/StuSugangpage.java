@@ -20,6 +20,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StuSugangpage {
 
@@ -27,7 +29,6 @@ public class StuSugangpage {
 	private JScrollPane scrollPane;
 	private JTextField tf_name;
 	private JTextField tf_num;
-	
 
 	/**
 	 * Launch the application.
@@ -62,146 +63,134 @@ public class StuSugangpage {
 		frame.setBounds(100, 100, 1250, 669);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		
-		
-		
-		final String header[]={"학수번호", "과목명", "담당 교수", "시간","현재인원","정원"};
-        final String contents[][]={
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
-                {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
-                {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
-                {"EMD-4865", "성균논어", "김김김", "10~11","70","70"}
-        };
-        
-        final String cc[][] = {
-                {"GCD-df", "sf", "sf", "9~11","10","20"},
-                {"ECD-4568", "sdf", "sfd", "15~17","48","50"}
-        };
-        
-        
-        
- 
-        
-        final JTable jt = new JTable(contents, header);
 
-        
-        
-        JTable jt_confirm = new JTable(contents, header);
-        
-        JTable jt_wait = new JTable(contents, header);
-        
-        scrollPane = new JScrollPane(jt);
-        scrollPane.setBounds(51, 84, 1134, 334);
-        
-        JScrollPane scrollPane_1 = new JScrollPane(jt_confirm);
-        
-        JScrollPane scrollPane_1_1 = new JScrollPane(jt_wait);
-        
-        frame.getContentPane().add(scrollPane);
-        
-        JLabel lblNewLabel = new JLabel("\uACFC\uBAA9\uBA85");
-        lblNewLabel.setFont(new Font("08서울남산체 M", Font.BOLD, 15));
-        lblNewLabel.setBounds(190, 32, 50, 26);
-        frame.getContentPane().add(lblNewLabel);
-        
-        tf_name = new JTextField();
-        tf_name.setBounds(240, 35, 188, 21);
-        frame.getContentPane().add(tf_name);
-        tf_name.setColumns(10);
-        
-        JButton btn_name = new JButton("\uC870\uD68C");
-        btn_name.setBounds(448, 34, 62, 23);
-        frame.getContentPane().add(btn_name);
-        
-        JLabel lblNewLabel_1 = new JLabel("\uD559\uC218\uBC88\uD638");
-        lblNewLabel_1.setFont(new Font("08서울남산체 M", Font.BOLD, 15));
-        lblNewLabel_1.setBounds(664, 32, 72, 26);
-        frame.getContentPane().add(lblNewLabel_1);
-        
-        tf_num = new JTextField();
-        tf_num.setColumns(10);
-        tf_num.setBounds(730, 35, 188, 21);
-        frame.getContentPane().add(tf_num);
-        
-        JButton btn_num = new JButton("\uC870\uD68C");
-        btn_num.setBounds(930, 34, 62, 23);
-        frame.getContentPane().add(btn_num);
-        
-        JPanel panel = new JPanel();
-        panel.setBounds(51, 428, 497, 182);
-        frame.getContentPane().add(panel);
-        panel.setLayout(null);
-        
-        JLabel lblNewLabel_2 = new JLabel("\uD655\uC815\uACFC\uBAA9");
-        lblNewLabel_2.setFont(new Font("08서울남산체 M", Font.BOLD, 20));
-        lblNewLabel_2.setBounds(12, 10, 96, 34);
-        panel.add(lblNewLabel_2);
-        
-        
-        scrollPane_1.setBounds(106, 42, 321, 130);
-        panel.add(scrollPane_1);
-        
-        JPanel panel_1 = new JPanel();
-        panel_1.setBounds(688, 428, 497, 182);
-        frame.getContentPane().add(panel_1);
-        panel_1.setLayout(null);
-        
-        JLabel lblNewLabel_2_1 = new JLabel("\uB300\uAE30\uACFC\uBAA9");
-        lblNewLabel_2_1.setFont(new Font("08서울남산체 M", Font.BOLD, 20));
-        lblNewLabel_2_1.setBounds(12, 10, 96, 34);
-        panel_1.add(lblNewLabel_2_1);
-        
-        
-        scrollPane_1_1.setBounds(120, 42, 321, 130);
-        panel_1.add(scrollPane_1_1);
-        
-        JButton btn_go = new JButton("\uC2E0\uCCAD");
-        btn_go.setFont(new Font("08서울남산체 M", Font.BOLD, 19));
-        btn_go.setBounds(1098, 27, 103, 39);
-        frame.getContentPane().add(btn_go);
-        
-        
-        
-        //클릭 이벤트 
-        btn_name.addActionListener(new ActionListener() {
+		final LectureData allLecture = new LectureData();
+
+		// 가지고 온 데이터 contents 배열에 담아주기
+		final String[][] contents = new String[allLecture.lectureList.size()][allLecture.lectureList.get(0).size()];
+		String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
+		for (int i = 0; i < allLecture.lectureList.size(); i++) {
+			for (int j = 0; j < allLecture.lectureList.get(0).size(); j++) {
+				contents[i][j] = (String) allLecture.lectureList.get(i).get(arr_key[j]);
+			}
+		}
+
+		System.out.println("aa: " + allLecture.lectureList.size());
+		System.out.println("bb: " + allLecture.lectureList.get(0).size());
+
+		final String header[] = { "학수번호", "과목명", "담당교수", "시간", "현재인원", "정원" };
+
+		final DefaultTableModel model = new DefaultTableModel(contents, header);
+
+		final JTable jt = new JTable(model);
+
+		JTable jt_confirm = new JTable(contents, header);
+
+		JTable jt_wait = new JTable(contents, header);
+
+		scrollPane = new JScrollPane(jt);
+		scrollPane.setBounds(51, 84, 1134, 334);
+
+		JScrollPane scrollPane_1 = new JScrollPane(jt_confirm);
+
+		JScrollPane scrollPane_1_1 = new JScrollPane(jt_wait);
+
+		frame.getContentPane().add(scrollPane);
+
+		JLabel lblNewLabel = new JLabel("\uACFC\uBAA9\uBA85");
+		lblNewLabel.setFont(new Font("08서울남산체 M", Font.BOLD, 15));
+		lblNewLabel.setBounds(190, 32, 50, 26);
+		frame.getContentPane().add(lblNewLabel);
+
+		tf_name = new JTextField();
+		tf_name.setBounds(240, 35, 188, 21);
+		frame.getContentPane().add(tf_name);
+		tf_name.setColumns(10);
+
+		JButton btn_name = new JButton("\uC870\uD68C");
+		btn_name.setBounds(448, 34, 62, 23);
+		frame.getContentPane().add(btn_name);
+
+		JLabel lblNewLabel_1 = new JLabel("\uD559\uC218\uBC88\uD638");
+		lblNewLabel_1.setFont(new Font("08서울남산체 M", Font.BOLD, 15));
+		lblNewLabel_1.setBounds(664, 32, 72, 26);
+		frame.getContentPane().add(lblNewLabel_1);
+
+		tf_num = new JTextField();
+		tf_num.setColumns(10);
+		tf_num.setBounds(730, 35, 188, 21);
+		frame.getContentPane().add(tf_num);
+
+		JButton btn_num = new JButton("\uC870\uD68C");
+		btn_num.setBounds(930, 34, 62, 23);
+		frame.getContentPane().add(btn_num);
+
+		JPanel panel = new JPanel();
+		panel.setBounds(51, 428, 497, 182);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+
+		JLabel lblNewLabel_2 = new JLabel("\uD655\uC815\uACFC\uBAA9");
+		lblNewLabel_2.setFont(new Font("08서울남산체 M", Font.BOLD, 20));
+		lblNewLabel_2.setBounds(12, 10, 96, 34);
+		panel.add(lblNewLabel_2);
+
+		scrollPane_1.setBounds(106, 42, 321, 130);
+		panel.add(scrollPane_1);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(688, 428, 497, 182);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_2_1 = new JLabel("\uB300\uAE30\uACFC\uBAA9");
+		lblNewLabel_2_1.setFont(new Font("08서울남산체 M", Font.BOLD, 20));
+		lblNewLabel_2_1.setBounds(12, 10, 96, 34);
+		panel_1.add(lblNewLabel_2_1);
+
+		scrollPane_1_1.setBounds(120, 42, 321, 130);
+		panel_1.add(scrollPane_1_1);
+
+		JButton btn_go = new JButton("\uC2E0\uCCAD");
+		btn_go.setFont(new Font("08서울남산체 M", Font.BOLD, 19));
+		btn_go.setBounds(1098, 27, 103, 39);
+		frame.getContentPane().add(btn_go);
+
+		// 클릭 이벤트
+		btn_name.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("검색 기능");
-				contents[0][1] =  "changing";
-				contents[1][2] =  "changing";
-				jt.repaint();  // 테이블 업데이트
-	
+
+				System.out.println(jt.getRowCount());
+
+				model.removeRow(2);
+
+				// jt.repaint(); // 테이블 업데이트
+
 			}
 
 		});
-        
-        
+
+		btn_num.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+//				System.out.println("초기화 기능");
+//				DefaultTableModel model2 = new DefaultTableModel(contents,header);
+//				jt.setModel(model2);
+
+				System.out.println(allLecture.lectureList.get(2).get("nameProf"));
+
+				// 초기화 기능
+				model.setDataVector(contents, header);
+			}
+		});
+
 	}
 
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		frame.setVisible(b);
-		
+
 	}
 }
