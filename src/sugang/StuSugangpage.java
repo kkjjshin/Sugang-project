@@ -5,15 +5,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class StuSugangpage {
 
@@ -21,6 +27,7 @@ public class StuSugangpage {
 	private JScrollPane scrollPane;
 	private JTextField tf_name;
 	private JTextField tf_num;
+	
 
 	/**
 	 * Launch the application.
@@ -59,8 +66,8 @@ public class StuSugangpage {
 		
 		
 		
-		String header[]={"학수번호", "과목명", "담당 교수", "시간","현재인원","정원"};
-        String contents[][]={
+		final String header[]={"학수번호", "과목명", "담당 교수", "시간","현재인원","정원"};
+        final String contents[][]={
                 {"GCD-8027", "응용수학", "김세기", "9~11","10","20"},
                 {"ECD-4568", "사랑과문학", "이지순", "15~17","48","50"},
                 {"EMD-4865", "성균논어", "김김김", "10~11","70","70"},
@@ -87,8 +94,18 @@ public class StuSugangpage {
                 {"EMD-4865", "성균논어", "김김김", "10~11","70","70"}
         };
         
+        final String cc[][] = {
+                {"GCD-df", "sf", "sf", "9~11","10","20"},
+                {"ECD-4568", "sdf", "sfd", "15~17","48","50"}
+        };
         
-        JTable jt = new JTable(contents, header);
+        
+        
+ 
+        
+        final JTable jt = new JTable(contents, header);
+
+        
         
         JTable jt_confirm = new JTable(contents, header);
         
@@ -163,6 +180,23 @@ public class StuSugangpage {
         btn_go.setFont(new Font("08서울남산체 M", Font.BOLD, 19));
         btn_go.setBounds(1098, 27, 103, 39);
         frame.getContentPane().add(btn_go);
+        
+        
+        
+        //클릭 이벤트 
+        btn_name.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("검색 기능");
+				contents[0][1] =  "changing";
+				contents[1][2] =  "changing";
+				jt.repaint();  // 테이블 업데이트
+	
+			}
+
+		});
+        
+        
 	}
 
 	public void setVisible(boolean b) {
