@@ -129,6 +129,10 @@ public class Loginpage {
 				if (comboBox.getSelectedItem().toString().contentEquals("학생")) {
 					System.out.println("학생");
 					if(tempId.equals(s_id) && tempPw.equals(s_pw)) {
+						//ID는 stu
+						//PW는 1234
+					
+						
 						StuSugangpage s = new StuSugangpage();
 						s.setVisible(true);
 						frame.dispose();
