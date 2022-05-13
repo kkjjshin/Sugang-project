@@ -165,6 +165,7 @@ public class StuSugangpage {
 		btn_name.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				model.setDataVector(contents, header);
 
 				String temp_name = tf_name.getText();
 
@@ -198,6 +199,7 @@ public class StuSugangpage {
 		btn_num.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				model.setDataVector(contents, header);
 				String temp_num = tf_num.getText();
 				int find_n = -1;
 
