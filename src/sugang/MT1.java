@@ -1,5 +1,5 @@
 package sugang;
 
-public class TT1 {
+public class MT1 {
 
 }
