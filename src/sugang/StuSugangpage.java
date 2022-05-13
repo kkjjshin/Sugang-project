@@ -156,31 +156,79 @@ public class StuSugangpage {
 		btn_go.setBounds(1098, 27, 103, 39);
 		frame.getContentPane().add(btn_go);
 
-		// 클릭 이벤트
+		JButton btn_reset = new JButton("\uCD08\uAE30\uD654");
+		btn_reset.setFont(new Font("08서울남산체 M", Font.BOLD, 19));
+		btn_reset.setBounds(51, 32, 90, 26);
+		frame.getContentPane().add(btn_reset);
+
+		// 조회(이름)
 		btn_name.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("검색 기능");
 
-				System.out.println(jt.getRowCount());
+				String temp_name = tf_name.getText();
 
-				model.removeRow(2);
+				int find_i = -1;
 
-				// jt.repaint(); // 테이블 업데이트
+				// temp_name 있는 인덱스 찾기 if 없을시 검색결과가 없습니다. 발현
+				for (int i = 0; i < allLecture.lectureList.size(); i++) {
+					if (allLecture.lectureList.get(i).get("nameLecture").equals(temp_name)) {
+						find_i = i;
+					}
+				}
+
+				// i index 말고 나머지 다 지우기
+				if (find_i == -1) {
+					JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+				}
+
+				else {
+					for (int i = 0; i < find_i; i++) {
+						model.removeRow(0);
+					}
+
+					for (int j = 0; j < allLecture.lectureList.size() - 1 - find_i; j++) {
+						model.removeRow(1);
+					}
+				}
 
 			}
-
 		});
 
 		btn_num.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-//				System.out.println("초기화 기능");
-//				DefaultTableModel model2 = new DefaultTableModel(contents,header);
-//				jt.setModel(model2);
+				String temp_num = tf_num.getText();
+				int find_n = -1;
 
-				System.out.println(allLecture.lectureList.get(2).get("nameProf"));
+				// temp_num 있는 인덱스 찾기 if 없을시 검색결과가 없습니다. 발현
+				for (int i = 0; i < allLecture.lectureList.size(); i++) {
+					if (allLecture.lectureList.get(i).get("numLecture").equals(temp_num)) {
+						find_n = i;
+					}
+				}
 
+				// i index 말고 나머지 다 지우기
+				if (find_n == -1) {
+					JOptionPane.showMessageDialog(null, "검색 결과가 없습니다.");
+				}
+
+				else {
+					for (int i = 0; i < find_n; i++) {
+						model.removeRow(0);
+					}
+
+					for (int j = 0; j < allLecture.lectureList.size() - 1 - find_n; j++) {
+						model.removeRow(1);
+					}
+				}
+
+			}
+		});
+
+		btn_reset.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
 				// 초기화 기능
 				model.setDataVector(contents, header);
 			}
