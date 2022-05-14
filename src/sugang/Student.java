@@ -1,5 +1,9 @@
 package sugang;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class Student {
 	//학생 추상클래스
 	private String name;
@@ -12,6 +16,9 @@ public class Student {
 	//과목명, 시간, 교수명, 학수번호, 수강사유 등이 담겨있는 대기과목 자료구조
 	
 	//나의 시간표 담는 자료구조
+	
+	List<Map<String, Object>> confirmList = new ArrayList<Map<String, Object>>(); //확정과목
+	List<Map<String, Object>> waitList = new ArrayList<Map<String, Object>>(); //대기과목
 	
 	
 
