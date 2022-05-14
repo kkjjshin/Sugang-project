@@ -20,8 +20,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StuSugangpage {
 
@@ -29,6 +32,13 @@ public class StuSugangpage {
 	private JScrollPane scrollPane;
 	private JTextField tf_name;
 	private JTextField tf_num;
+	final LectureData allLecture = new LectureData();
+	final List<Map<String, Object>> mydata = allLecture.makeData();
+	final StudentA stu_a = new StudentA();
+	final List<Map<String, Object>> stuData_confrim = stu_a.confirmList;
+	final List<Map<String, Object>> stuData_wait = stu_a.waitList;
+	String[][] contents;
+	String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
 
 	/**
 	 * Launch the application.
@@ -64,29 +74,46 @@ public class StuSugangpage {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		final LectureData allLecture = new LectureData();
+		System.out.println("initial: " + allLecture.a1);
 
 		// 가지고 온 데이터 contents 배열에 담아주기
-		final String[][] contents = new String[allLecture.lectureList.size()][allLecture.lectureList.get(0).size()];
-		String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
-		for (int i = 0; i < allLecture.lectureList.size(); i++) {
-			for (int j = 0; j < allLecture.lectureList.get(0).size(); j++) {
-				contents[i][j] = (String) allLecture.lectureList.get(i).get(arr_key[j]);
+		final String[][] contents = new String[mydata.size()][mydata.get(0).size()];
+		final String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
+		for (int i = 0; i < mydata.size(); i++) {
+			for (int j = 0; j < mydata.get(0).size(); j++) {
+				contents[i][j] = (String) mydata.get(i).get(arr_key[j]);
 			}
 		}
 
-		System.out.println("aa: " + allLecture.lectureList.size());
-		System.out.println("bb: " + allLecture.lectureList.get(0).size());
+		final String[][] contents2 = new String[mydata.size()][mydata.get(0).size()];
+
+		for (int i = 0; i < mydata.size(); i++) {
+			for (int j = 0; j < mydata.get(0).size(); j++) {
+				contents2[i][j] = " ";
+			}
+		}
+
+		final String[][] contents3 = new String[mydata.size()][mydata.get(0).size()];
+
+		for (int i = 0; i < mydata.size(); i++) {
+			for (int j = 0; j < mydata.get(0).size(); j++) {
+				contents3[i][j] = " ";
+			}
+		}
 
 		final String header[] = { "학수번호", "과목명", "담당교수", "시간", "현재인원", "정원" };
 
 		final DefaultTableModel model = new DefaultTableModel(contents, header);
 
+		final DefaultTableModel model2 = new DefaultTableModel(contents2, header);
+
+		final DefaultTableModel model3 = new DefaultTableModel(contents3, header);
+
 		final JTable jt = new JTable(model);
 
-		JTable jt_confirm = new JTable(contents, header);
+		final JTable jt_confirm = new JTable(model2);
 
-		JTable jt_wait = new JTable(contents, header);
+		final JTable jt_wait = new JTable(model3);
 
 		scrollPane = new JScrollPane(jt);
 		scrollPane.setBounds(51, 84, 1134, 334);
@@ -172,8 +199,8 @@ public class StuSugangpage {
 				int find_i = -1;
 
 				// temp_name 있는 인덱스 찾기 if 없을시 검색결과가 없습니다. 발현
-				for (int i = 0; i < allLecture.lectureList.size(); i++) {
-					if (allLecture.lectureList.get(i).get("nameLecture").equals(temp_name)) {
+				for (int i = 0; i < mydata.size(); i++) {
+					if (mydata.get(i).get("nameLecture").equals(temp_name)) {
 						find_i = i;
 					}
 				}
@@ -188,7 +215,7 @@ public class StuSugangpage {
 						model.removeRow(0);
 					}
 
-					for (int j = 0; j < allLecture.lectureList.size() - 1 - find_i; j++) {
+					for (int j = 0; j < mydata.size() - 1 - find_i; j++) {
 						model.removeRow(1);
 					}
 				}
@@ -204,8 +231,8 @@ public class StuSugangpage {
 				int find_n = -1;
 
 				// temp_num 있는 인덱스 찾기 if 없을시 검색결과가 없습니다. 발현
-				for (int i = 0; i < allLecture.lectureList.size(); i++) {
-					if (allLecture.lectureList.get(i).get("numLecture").equals(temp_num)) {
+				for (int i = 0; i < mydata.size(); i++) {
+					if (mydata.get(i).get("numLecture").equals(temp_num)) {
 						find_n = i;
 					}
 				}
@@ -220,7 +247,7 @@ public class StuSugangpage {
 						model.removeRow(0);
 					}
 
-					for (int j = 0; j < allLecture.lectureList.size() - 1 - find_n; j++) {
+					for (int j = 0; j < mydata.size() - 1 - find_n; j++) {
 						model.removeRow(1);
 					}
 				}
@@ -233,6 +260,129 @@ public class StuSugangpage {
 			public void actionPerformed(ActionEvent e) {
 				// 초기화 기능
 				model.setDataVector(contents, header);
+			}
+		});
+
+		btn_go.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// 현재인원 1개 올려준다 가정
+
+				int row = jt.getSelectedRow();
+
+				if (row == -1) {
+					JOptionPane.showMessageDialog(null, "강의를 선택해주세요");
+				} else {
+					int tempNow = Integer.parseInt((String) jt.getValueAt(row, 4));
+					int tempMax = Integer.parseInt((String) jt.getValueAt(row, 5));
+					if (tempNow < tempMax) {
+						String tempId = (String) jt.getValueAt(row, 0); // 학수번호
+						String tempTime = (String) jt.getValueAt(row, 3); // 시간
+						System.out.println("tempID: " + tempId);
+						allLecture.setNum(tempId); // 데이터 1 증가 시킴
+
+						// 시간겹치는지, 같은 강의인지 체크
+
+						int check_confrim = 0;
+
+						// 같은 강의 있는지 체크 (학수번호로 체크)
+						for (int i = 0; i < mydata.size(); i++) {
+							for (int j = 0; j < mydata.get(0).size(); j++) {
+								if (contents2[i][j].equals(tempId)) {
+									JOptionPane.showMessageDialog(null, "이미 신청한 과목입니다.");
+									check_confrim = 1;
+									break;
+								}
+
+								else if (contents2[i][j].equals(tempTime)) {
+									JOptionPane.showMessageDialog(null, "같은 시간대에는 신청할 수 없습니다.");
+									check_confrim = 1;
+									break;
+								}
+							}
+						}
+
+						// 시간 겹치는 과목 있는지 체크
+
+						// 학생 객체에 확정과목 담아줌.
+						if (check_confrim == 0) {
+							Map<String, Object> mapConfirm = new HashMap<String, Object>();
+							mapConfirm.put("numLecture", (String) jt.getValueAt(row, 0));
+							mapConfirm.put("nameLecture", (String) jt.getValueAt(row, 1));
+							mapConfirm.put("nameProf", (String) jt.getValueAt(row, 2));
+							mapConfirm.put("timeLecture", (String) jt.getValueAt(row, 3));
+							mapConfirm.put("nowPeople", (String) jt.getValueAt(row, 4));
+							mapConfirm.put("maxPeople", (String) jt.getValueAt(row, 5));
+							stuData_confrim.add(mapConfirm);
+
+							// 확정 테이블에 담아줌
+							for (int i = 0; i < stuData_confrim.size(); i++) {
+								for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
+									contents2[i][j] = (String) stuData_confrim.get(i).get(arr_key[j]);
+								}
+							}
+							model2.setDataVector(contents2, header);
+
+							// jTable도 1 증가시킴
+							if (tempId.equals("aa-01")) {
+								contents[0][4] = Integer.toString(tempNow + 1);
+							} else if (tempId.equals("aa-02")) {
+								contents[1][4] = Integer.toString(tempNow + 1);
+							} else if (tempId.equals("aa-03")) {
+								contents[2][4] = Integer.toString(tempNow + 1);
+							} else if (tempId.equals("aa-04")) {
+								contents[3][4] = Integer.toString(tempNow + 1);
+							}
+
+							// contents[row][4] = Integer.toString(tempNow + 1);
+
+							JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
+						}
+
+					} else {
+
+						JOptionPane.showMessageDialog(null, "수강인원이 초과되었습니다.");
+
+						String tempId = (String) jt.getValueAt(row, 0); // 학수번호
+
+						int check_confrim = 0;
+
+						// 같은 강의 있는지 체크 (학수번호로 체크)
+						for (int i = 0; i < mydata.size(); i++) {
+							for (int j = 0; j < mydata.get(0).size(); j++) {
+								if (contents3[i][j].equals(tempId)) {
+									JOptionPane.showMessageDialog(null, "이미 대기 목록에 있는 과목입니다.");
+									check_confrim = 1;
+									break;
+								}
+							}
+						}
+
+						if (check_confrim == 0) {
+							Map<String, Object> mapWait = new HashMap<String, Object>();
+							mapWait.put("numLecture", (String) jt.getValueAt(row, 0));
+							mapWait.put("nameLecture", (String) jt.getValueAt(row, 1));
+							mapWait.put("nameProf", (String) jt.getValueAt(row, 2));
+							mapWait.put("timeLecture", (String) jt.getValueAt(row, 3));
+							mapWait.put("nowPeople", (String) jt.getValueAt(row, 4));
+							mapWait.put("maxPeople", (String) jt.getValueAt(row, 5));
+							stuData_wait.add(mapWait);
+
+							// 대기 테이블에 담아줌
+							for (int i = 0; i < stuData_wait.size(); i++) {
+								for (int j = 0; j < stuData_wait.get(0).size(); j++) {
+									contents3[i][j] = (String) stuData_wait.get(i).get(arr_key[j]);
+								}
+							}
+							model3.setDataVector(contents3, header);
+						}
+
+					}
+				}
+
+				// j는 4로 고정. 현재인원만 고칠거기 때문임.
+				model.setDataVector(contents, header);
+
 			}
 		});
 
