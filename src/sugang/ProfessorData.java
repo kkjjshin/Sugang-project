@@ -20,7 +20,7 @@ import java.util.Map;
 
 
 public class ProfessorData {
-//이 파일은 필요 없을 수도..?
+
 	
 	public ArrayList<String> lecdata = new ArrayList<>();
 	public String[] lecturedata = new String[lecdata.size()];

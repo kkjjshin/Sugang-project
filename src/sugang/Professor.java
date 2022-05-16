@@ -9,7 +9,8 @@ import java.io.InputStreamReader;
 
 import sugang.ProfessorData.*;
 
-
+//얘가 파일 io를 사용해야 되는거지 싶어
+//일단 구현을 다 하고.
 public class Professor {
 	//교수 추상 클래스
 	
@@ -18,7 +19,12 @@ public class Professor {
 		ProfessorData test = new ProfessorData();
 		test.prolectures();
 		
-		System.out.print(Arrays.toString(test.lecturedata));
+		//System.out.print(Arrays.toString(test.lecturedata));
+		
+		for(int i=0; i<test.lecturedata.length;i++) {
+			System.out.println(test.lecturedata[i]);
+		}
+		
 		/*
 		for(int i=0; i<test.lecturedata.length/16;i++) {
 			for(int j=0; j<16; j++) {

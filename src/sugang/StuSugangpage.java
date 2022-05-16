@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.*;
 
 public class StuSugangpage {
 
@@ -164,6 +165,18 @@ public class StuSugangpage {
 
 		scrollPane_1.setBounds(106, 42, 321, 130);
 		panel.add(scrollPane_1);
+		
+		JButton btn_gototable = new JButton("\uB098\uC758 \uC2DC\uAC04\uD45C");//현정 수정한 부분 -  나의 시간표로 페이지 넘어가게
+		btn_gototable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Schedule sch = new Schedule();
+				sch.setVisible(true);
+				frame.dispose();
+			}
+		});
+		btn_gototable.setFont(new Font("굴림", Font.BOLD, 15));
+		btn_gototable.setBounds(348, 9, 137, 23);
+		panel.add(btn_gototable);//현정 수정한 부분
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(688, 428, 497, 182);
@@ -314,7 +327,7 @@ public class StuSugangpage {
 							mapConfirm.put("nowPeople", (String) jt.getValueAt(row, 4));
 							mapConfirm.put("maxPeople", (String) jt.getValueAt(row, 5));
 							stuData_confrim.add(mapConfirm);
-
+							
 							// 확정 테이블에 담아줌
 							for (int i = 0; i < stuData_confrim.size(); i++) {
 								for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
@@ -322,6 +335,33 @@ public class StuSugangpage {
 								}
 							}
 							model2.setDataVector(contents2, header);
+
+							try {//현정 수정 부분
+								//확정 데이터 txt파일로 출력
+								//출력할때 path방식으로 하면 에러나서, 일단 로컬 경로로 해둠. 나중에 Schedule경로랑 똑같이 맞춰야함.
+								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
+								OutputStreamWriter osw = new OutputStreamWriter(fos);
+								BufferedWriter bw = new BufferedWriter(osw);
+								
+								for (int i = 0; i < stuData_confrim.size(); i++) {
+									for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
+										bw.write(contents2[i][j]);
+										bw.write(",");//나중에 읽어올때 구분위해서
+									}
+									bw.newLine();
+								}
+								
+								
+								bw.flush();
+								bw.close(); 
+								osw.close(); 
+								fos.close();
+								
+								
+							}
+							catch(IOException x){
+								x.printStackTrace();//기능뭔지
+							}//file i/o끝
 
 							// jTable도 1 증가시킴
 							if (tempId.equals("aa-01")) {
@@ -387,6 +427,7 @@ public class StuSugangpage {
 		});
 
 	}
+	
 
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
