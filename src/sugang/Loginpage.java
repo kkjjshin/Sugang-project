@@ -26,10 +26,9 @@ public class Loginpage {
 	private JFrame frame;
 	private JTextField tf_id;
 	private JPasswordField tf_pw;
-
 	// 임시로 만든 데이터임. 실제로는 file에 저장해서 file I/O이용해서 읽어올거임
 	// 너무 적다 싶으면 회원가입 기능도 구현할 예정
-	String s_id = "stu";
+	public String s_id = "stu";//현정-수정
 	String s_pw = "1234";
 	String p_id = "pro";
 	String p_pw = "1111";
@@ -146,10 +145,10 @@ public class Loginpage {
 					System.out.println("교수");
 				}
 
-//				// 화면 전환
-//				TestPage g = new TestPage();
-//				g.setVisible(true);
-//				frame.dispose();
+				// 화면 전환
+				ProfessorPage g = new ProfessorPage();
+				g.setVisible(true);
+				frame.dispose();
 
 			}
 
