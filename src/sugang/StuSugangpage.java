@@ -40,6 +40,7 @@ public class StuSugangpage {
 	final List<Map<String, Object>> stuData_wait = stu_a.waitList;
 	String[][] contents;
 	String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
+	//String[][]  professordata;
 
 	/**
 	 * Launch the application.
@@ -101,6 +102,21 @@ public class StuSugangpage {
 				contents3[i][j] = " ";
 			}
 		}
+		/*
+		String[][] professordata = new String[10][100];//현정 수정 부분 - 최대 강의 10개에 학생 100명으로 배열생성
+		
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 100; j++) {
+				professordata[i][j] = null;
+			}
+		}
+		
+		for (int i = 0; i < mydata.size(); i++) {
+			for (int j = 0; j < mydata.get(0).size(); j++) {
+				professordata[i][j] = contents[i][j];
+			}
+		}//professordata에 contents와 똑같이 넣고, 나머지는 null로 초기화
+		*/
 
 		final String header[] = { "학수번호", "과목명", "담당교수", "시간", "현재인원", "정원" };
 
@@ -346,7 +362,7 @@ public class StuSugangpage {
 								for (int i = 0; i < stuData_confrim.size(); i++) {
 									for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
 										bw.write(contents2[i][j]);
-										bw.write(",");//나중에 읽어올때 구분위해서
+										bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
 									}
 									bw.newLine();
 								}
@@ -360,7 +376,40 @@ public class StuSugangpage {
 								
 							}
 							catch(IOException x){
-								x.printStackTrace();//기능뭔지
+								x.printStackTrace();
+							}
+							
+							try {
+								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\professor.txt");
+								OutputStreamWriter osw = new OutputStreamWriter(fos);
+								BufferedWriter bw = new BufferedWriter(osw);
+								
+								
+								for (int i = 0; i < stuData_confrim.size(); i++) {
+									for (int j = 0; j < stuData_confrim.get(0).size()+1; j++) {
+										if(j==stuData_confrim.get(0).size()) {
+											Loginpage tempidpw = new Loginpage();
+											bw.write(tempidpw.s_id);
+											bw.write(",");
+										}
+										else {
+											bw.write(contents2[i][j]);
+											bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
+										}
+									}
+									bw.newLine();
+								}
+								
+								
+								bw.flush();
+								bw.close(); 
+								osw.close(); 
+								fos.close();
+								
+								
+							}
+							catch(IOException x){
+								x.printStackTrace();
 							}//file i/o끝
 
 							// jTable도 1 증가시킴
@@ -377,6 +426,15 @@ public class StuSugangpage {
 							// contents[row][4] = Integer.toString(tempNow + 1);
 
 							JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
+							
+							/*
+							for (int i = 0; i < mydata.size(); i++) {//현정 수정 부분
+								for (int j = 0; j < mydata.get(0).size(); j++) {
+									professordata[i][j] = contents[i][j];
+								}
+							}//contents가 업데이트 되었으므로, professordata도 업데이트.
+							*/
+							
 						}
 
 					} else {
@@ -415,13 +473,47 @@ public class StuSugangpage {
 								}
 							}
 							model3.setDataVector(contents3, header);
+							
+							try {
+								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\excess.txt");
+								OutputStreamWriter osw = new OutputStreamWriter(fos);
+								BufferedWriter bw = new BufferedWriter(osw);
+								
+								for (int i = 0; i < stuData_wait.size(); i++) {
+									for (int j = 0; j < stuData_wait.get(0).size()+1; j++) {
+										if(j==stuData_wait.get(0).size()) {
+											Loginpage tempidpw = new Loginpage();
+											bw.write(tempidpw.s_id);
+											bw.write(",");
+										}
+										else {
+											bw.write(contents3[i][j]);
+											bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
+										}
+									}
+									bw.newLine();
+								}
+								
+								
+								bw.flush();
+								bw.close(); 
+								osw.close(); 
+								fos.close();
+								
+								
+							}
+							catch(IOException x){
+								x.printStackTrace();
+							}//file i/o끝
 						}
+						
 
 					}
 				}
 
 				// j는 4로 고정. 현재인원만 고칠거기 때문임.
 				model.setDataVector(contents, header);
+				
 
 			}
 		});

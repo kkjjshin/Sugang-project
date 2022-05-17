@@ -9,8 +9,7 @@ import java.io.InputStreamReader;
 
 import sugang.ProfessorData.*;
 
-//얘가 파일 io를 사용해야 되는거지 싶어
-//일단 구현을 다 하고.
+//없애기
 public class Professor {
 	//교수 추상 클래스
 	
