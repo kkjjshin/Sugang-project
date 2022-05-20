@@ -27,7 +27,8 @@ public class Schedule extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	String[] tabledata;
-	
+	private JFrame frame;
+
 	/**
 	 * Launch the application.
 	 */
@@ -35,8 +36,12 @@ public class Schedule extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Schedule frame = new Schedule();
-					frame.setVisible(true);
+//					Schedule frame = new Schedule();
+//					frame.setVisible(true);
+					
+					//경준 수정 5/20
+					Schedule w = new Schedule();
+					w.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -111,8 +116,9 @@ public class Schedule extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {//돌아가기버튼
 				
-				StuSugangpage sp = new StuSugangpage();
-				sp.setVisible(true);
+				//경준 삭제 05/20 : 아래와 같이 하게되면 새로운 수강신청 페이지 생기므로 지워줌
+//				StuSugangpage sp = new StuSugangpage();
+//				sp.setVisible(true);
 				dispose(); //데이터 삭제되는데..?
 			}
 		});

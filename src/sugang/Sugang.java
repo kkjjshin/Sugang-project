@@ -8,4 +8,5 @@ public interface Sugang {
 	public void timeCheck();
 	public void numCheck();
 	
+	
 }
