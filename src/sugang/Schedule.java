@@ -28,6 +28,8 @@ public class Schedule extends JFrame {
 	private JTable table;
 	String[] tabledata;
 	private JFrame frame;
+	String[] timecheck;
+	int[] mytime;
 
 	/**
 	 * Launch the application.
@@ -36,12 +38,12 @@ public class Schedule extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					Schedule frame = new Schedule();
-//					frame.setVisible(true);
+					Schedule frame = new Schedule();
+					frame.setVisible(true);
 					
 					//경준 수정 5/20
-					Schedule w = new Schedule();
-					w.frame.setVisible(true);
+					//Schedule w = new Schedule();
+					//w.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,21 +84,48 @@ public class Schedule extends JFrame {
 		};
 		
 		//ScheduleData에서 읽어온 txt파일 내용을 가공해 contents에 넣기
-		//(나중에 수정)sutsugangpage에서 txt파일이 현재 경로에 만들어지지가 않음 => 해결이 안되면 ScheduleData 파일에서 경로를 상대경로(?)하튼 로컬로 바꿔야함.
+		//실행전에ScheduleData 파일에서 경로 바꿔주기
 		ScheduleData test = new ScheduleData();
 		test.prolectures();
 		
 		for (int i = 0; i < test.lecturedata.length; i++) {
 			String str = test.lecturedata[i];
 			str=str.substring(1,str.length()-1);
-			//System.out.println(str);
 			tabledata = str.split(",");
 			for(int j=0;j<tabledata.length;j++) {
 				contents[i][j]=tabledata[j];
-				System.out.println(tabledata[j]);
+				System.out.println(contents[i][j]);//test
 			}
 		}
 		//넣기 끝
+		
+		mytime=new int[test.lecturedata.length];
+		
+		for(int l=0;l<test.lecturedata.length;l++) {
+			String time = contents[l][3];
+			time=time.substring(0,2);
+			int a =Integer.parseInt(time);
+			mytime[l]=a;
+			System.out.println(mytime[l]);
+		}
+		
+		
+		for(int i=0;i<test.lecturedata.length;i++) {
+			for(int j=i ;j<test.lecturedata.length;j++) {
+				if(mytime[i]>mytime[j]) {
+			
+					for(int k=0;k<contents[0].length;k++) {
+						String temp = contents[i][k];
+						contents[i][k]=contents[j][k];
+						contents[j][k]=temp;
+					}
+				}
+				
+			}	
+		}//시간 순으로 바꾸기
+		
+		
+		
 		
 		
 		DefaultTableModel model = new DefaultTableModel(contents,header);//이것만 stutable.contents2로 바꿔주면 됌.
@@ -119,7 +148,7 @@ public class Schedule extends JFrame {
 				//경준 삭제 05/20 : 아래와 같이 하게되면 새로운 수강신청 페이지 생기므로 지워줌
 //				StuSugangpage sp = new StuSugangpage();
 //				sp.setVisible(true);
-				dispose(); //데이터 삭제되는데..?
+				dispose(); 
 			}
 		});
 		btnNewButton.setFont(new Font("굴림", Font.BOLD, 12));
@@ -131,3 +160,4 @@ public class Schedule extends JFrame {
 		
 	}
 }
+

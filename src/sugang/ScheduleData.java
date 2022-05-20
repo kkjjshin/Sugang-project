@@ -14,9 +14,12 @@ public class ScheduleData {
 	public void prolectures() {
 		try {
 			
-		
+			/*
 			String path = ProfessorData.class.getResource("").getPath();
 			InputStream fis = new FileInputStream(path+"student1.txt");
+			*/
+			//실행 전 경로 설정해주기
+			InputStream fis = new FileInputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
 			InputStreamReader isr = new InputStreamReader(fis);
 			br = new BufferedReader(isr);
 			
