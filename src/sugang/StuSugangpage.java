@@ -29,6 +29,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.*;
+import javax.swing.JComboBox;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.BevelBorder;
 
 public class StuSugangpage {
 
@@ -39,10 +44,16 @@ public class StuSugangpage {
 	final LectureData allLecture = new LectureData();
 	final List<Map<String, Object>> mydata = allLecture.makeData();
 	final StudentA stu_a = new StudentA();
+	final ProfessorA pro_a = new ProfessorA();
 	final List<Map<String, Object>> stuData_confrim = stu_a.confirmList;
 	final List<Map<String, Object>> stuData_wait = stu_a.waitList;
+	//
+	final List<Map<String, Object>> proData_wait=pro_a.waitList;
+	//
+	
 	String[][] contents;
 	String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
+	//private JTable professortable;
 	// String[][] professordata;
 
 //	public class ScrollbarT {
@@ -107,6 +118,7 @@ public class StuSugangpage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("굴림", Font.PLAIN, 12));
 		frame.getContentPane().setBackground(new Color(154, 205, 50));
 		frame.setTitle("\uC218\uAC15\uC2E0\uCCAD(\uD559\uC0DD)");
 		frame.setBounds(100, 100, 1246, 1096);
@@ -139,6 +151,17 @@ public class StuSugangpage {
 				contents3[i][j] = " ";
 			}
 		}
+		
+		//
+		final String[][] contents4 = new String[mydata.size()][mydata.get(0).size()];
+
+		for (int i = 0; i < mydata.size(); i++) {
+			for (int j = 0; j < mydata.get(0).size(); j++) {
+				
+				contents4[i][j] = " ";
+			}
+		}
+		//
 		/*
 		 * String[][] professordata = new String[10][100];//현정 수정 부분 - 최대 강의 10개에 학생
 		 * 100명으로 배열생성
@@ -158,12 +181,21 @@ public class StuSugangpage {
 		final DefaultTableModel model2 = new DefaultTableModel(contents2, header);
 
 		final DefaultTableModel model3 = new DefaultTableModel(contents3, header);
+		
+		//
+		final DefaultTableModel mode2_1 = new DefaultTableModel(contents4, header);
+		//
+		
 
 		final JTable jt = new JTable(model);
 
 		final JTable jt_confirm = new JTable(model2);
 
 		final JTable jt_wait = new JTable(model3);
+		
+		//
+		final JTable professortable = new JTable(mode2_1);
+		//
 
 		scrollPane = new JScrollPane(jt);
 		scrollPane.setBounds(51, 84, 1134, 158);
@@ -171,6 +203,11 @@ public class StuSugangpage {
 		JScrollPane scrollPane_1 = new JScrollPane(jt_confirm);
 
 		JScrollPane scrollPane_1_1 = new JScrollPane(jt_wait);
+		
+		//
+		JScrollPane scrollPane_2 = new JScrollPane(professortable);
+		//
+		
 
 		frame.getContentPane().add(scrollPane);
 
@@ -203,7 +240,7 @@ public class StuSugangpage {
 		frame.getContentPane().add(btn_num);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(51, 286, 497, 182);
+		panel.setBounds(51, 263, 497, 182);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -229,7 +266,7 @@ public class StuSugangpage {
 		panel.add(btn_gototable);// 현정 수정한 부분
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(688, 286, 497, 182);
+		panel_1.setBounds(688, 263, 497, 182);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -250,7 +287,34 @@ public class StuSugangpage {
 		btn_reset.setFont(new Font("08서울남산체 M", Font.BOLD, 19));
 		btn_reset.setBounds(51, 32, 90, 26);
 		frame.getContentPane().add(btn_reset);
+		
+		JLabel lblNewLabel_3 = new JLabel("\uAD00\uB9AC\uC790");
+		lblNewLabel_3.setFont(new Font("굴림", Font.BOLD, 25));
+		lblNewLabel_3.setBounds(78, 526, 131, 39);
+		frame.getContentPane().add(lblNewLabel_3);
+		
+		//
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(221, 497, 697, 159);
+		frame.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
 
+		scrollPane_2.setBounds(107, 19, 485, 130);
+		panel_2.add(scrollPane_2);
+		//
+		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"\uAD50\uC2181", "\uAD50\uC2182", "\uAD50\uC2183"}));
+		comboBox.setToolTipText("");
+		comboBox.setBounds(67, 577, 95, 26);
+		frame.getContentPane().add(comboBox);
+		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{scrollPane, jt, lblNewLabel, tf_name, btn_name, lblNewLabel_1, tf_num, btn_num, panel, lblNewLabel_2, scrollPane_1, jt_confirm, btn_gototable, panel_1, lblNewLabel_2_1, scrollPane_1_1, jt_wait, btn_go, btn_reset, lblNewLabel_3, panel_2, comboBox}));
+		
 		// 조회(이름)
 		btn_name.addActionListener(new ActionListener() {
 
@@ -494,7 +558,15 @@ public class StuSugangpage {
 							mapWait.put("nowPeople", (String) jt.getValueAt(row, 4));
 							mapWait.put("maxPeople", (String) jt.getValueAt(row, 5));
 							stuData_wait.add(mapWait);
-
+							//
+							if((String) comboBox.getSelectedItem()=="교수1") {//다른 교수 이름이로도 되게 수정
+								String getname = (String) jt.getValueAt(row, 2);
+								System.out.println(getname);
+								System.out.println((String) comboBox.getSelectedItem());
+									proData_wait.add(mapWait);
+							}
+							//
+							
 							// 대기 테이블에 담아줌
 							for (int i = 0; i < stuData_wait.size(); i++) {
 								for (int j = 0; j < stuData_wait.get(0).size(); j++) {
@@ -502,7 +574,17 @@ public class StuSugangpage {
 								}
 							}
 							model3.setDataVector(contents3, header);
-
+							
+							//
+							for (int i = 0; i < proData_wait.size(); i++) {
+								for (int j = 0; j < proData_wait.get(0).size(); j++) {
+									contents4[i][j] = (String) proData_wait.get(i).get(arr_key[j]);
+								}
+							}
+							mode2_1.setDataVector(contents4, header);
+							//
+							
+							//
 //							try {
 //								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\excess.txt");
 //								OutputStreamWriter osw = new OutputStreamWriter(fos);

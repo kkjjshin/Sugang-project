@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 public class Schedule extends JFrame {
 
 	//나의 시간표 gui 구현
-	//file i/o로 할수도 있는데, 코드 짜다보니 file i/o는 교수 페이지에서 구현하는게 더 적합하다 싶고 여기선 map쓰는게 더 쉬움 ->일단 map으로 해놓고 나중에 file로 바꾸든지 하자
 	private JPanel contentPane;
 	private JTable table;
 	String[] tabledata;
