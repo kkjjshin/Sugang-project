@@ -23,6 +23,7 @@ public class ProfessorPage extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
+	private JTable table_1;
 
 	/**
 	 * Launch the application.
@@ -96,6 +97,9 @@ public class ProfessorPage extends JFrame {
 		
 		scrollPane.setViewportView(table);
 		
+		table_1 = new JTable();
+		scrollPane.setViewportView(table_1);
+		
 		JLabel lblNewLabel_1 = new JLabel("\uB300\uAE30 \uC21C\uC704");
 		lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 13));
 		lblNewLabel_1.setBounds(29, 30, 82, 23);
@@ -115,5 +119,4 @@ public class ProfessorPage extends JFrame {
 		btnNewButton.setBounds(352, 130, 72, 46);
 		contentPane.add(btnNewButton);
 	}
-	
 }
