@@ -388,8 +388,8 @@ public class StuSugangpage {
 
 							try {// 현정 수정 부분
 									// 확정 데이터 txt파일로 출력
-									// 출력할때 path방식으로 하면 에러나서, 일단 로컬 경로로 해둠. 나중에 Schedule경로랑 똑같이 맞춰야함.
-								FileOutputStream fos = new FileOutputStream("C:\\Users\\Shin\\Desktop\\student11.txt");
+									//ScheduleData경로랑 똑같이 맞추기.
+								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
 								OutputStreamWriter osw = new OutputStreamWriter(fos);
 								BufferedWriter bw = new BufferedWriter(osw);
 
