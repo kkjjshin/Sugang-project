@@ -18,9 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,17 +43,51 @@ public class StuSugangpage {
 	final List<Map<String, Object>> stuData_wait = stu_a.waitList;
 	String[][] contents;
 	String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
-	//String[][]  professordata;
+	// String[][] professordata;
+
+//	public class ScrollbarT {
+//		Scrollbar bar1, bar2, bar3, bar4, bar5;
+//
+//		public ScrollbarT() {
+//			frame.addWindowListener(new WindowAdapter() {
+//				public void windowClosing(WindowEvent e) {
+//					System.exit(0);
+//				}
+//			});
+//
+//			// 좌측부터 차례대로 (스크롤 할 방향,초기위치,스크롤바가 표시하는 화면 크기,화면의 넓이 최소값,화면의 넓이 최대값)
+//			bar1 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0, 25);
+//			bar2 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 30, 0, 300);
+//			bar3 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0, 300);
+//			bar4 = new Scrollbar(Scrollbar.VERTICAL, 0, 150, 0, 250);
+//		7955 = new Scrollbar(Scrollbar.VERTICAL, 0, 50, 0, 250);
+//
+//			frame.add(bar1, "North");
+//			frame.add(bar2, "South");
+//			frame.add(bar3, "Center");
+//			frame.add(bar4, "East");
+//			frame.add(bar5, "West");
+//
+//			frame.setSize(500, 400);
+//			frame.setVisible(true);
+//		}
+//	}
+
+//	    public static void main(String[] args){
+//	        ScrollbarT sbt=new ScrollbarT();
+//	    }
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					StuSugangpage window = new StuSugangpage();
 					window.frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,7 +109,7 @@ public class StuSugangpage {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(154, 205, 50));
 		frame.setTitle("\uC218\uAC15\uC2E0\uCCAD(\uD559\uC0DD)");
-		frame.setBounds(100, 100, 1250, 669);
+		frame.setBounds(100, 100, 1246, 1096);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -103,20 +140,16 @@ public class StuSugangpage {
 			}
 		}
 		/*
-		String[][] professordata = new String[10][100];//현정 수정 부분 - 최대 강의 10개에 학생 100명으로 배열생성
-		
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 100; j++) {
-				professordata[i][j] = null;
-			}
-		}
-		
-		for (int i = 0; i < mydata.size(); i++) {
-			for (int j = 0; j < mydata.get(0).size(); j++) {
-				professordata[i][j] = contents[i][j];
-			}
-		}//professordata에 contents와 똑같이 넣고, 나머지는 null로 초기화
-		*/
+		 * String[][] professordata = new String[10][100];//현정 수정 부분 - 최대 강의 10개에 학생
+		 * 100명으로 배열생성
+		 * 
+		 * for (int i = 0; i < 10; i++) { for (int j = 0; j < 100; j++) {
+		 * professordata[i][j] = null; } }
+		 * 
+		 * for (int i = 0; i < mydata.size(); i++) { for (int j = 0; j <
+		 * mydata.get(0).size(); j++) { professordata[i][j] = contents[i][j]; }
+		 * }//professordata에 contents와 똑같이 넣고, 나머지는 null로 초기화
+		 */
 
 		final String header[] = { "학수번호", "과목명", "담당교수", "시간", "현재인원", "정원" };
 
@@ -133,7 +166,7 @@ public class StuSugangpage {
 		final JTable jt_wait = new JTable(model3);
 
 		scrollPane = new JScrollPane(jt);
-		scrollPane.setBounds(51, 84, 1134, 334);
+		scrollPane.setBounds(51, 84, 1134, 158);
 
 		JScrollPane scrollPane_1 = new JScrollPane(jt_confirm);
 
@@ -170,7 +203,7 @@ public class StuSugangpage {
 		frame.getContentPane().add(btn_num);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(51, 428, 497, 182);
+		panel.setBounds(51, 286, 497, 182);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -181,21 +214,22 @@ public class StuSugangpage {
 
 		scrollPane_1.setBounds(106, 42, 321, 130);
 		panel.add(scrollPane_1);
-		
-		JButton btn_gototable = new JButton("\uB098\uC758 \uC2DC\uAC04\uD45C");//현정 수정한 부분 -  나의 시간표로 페이지 넘어가게
+
+		JButton btn_gototable = new JButton("\uB098\uC758 \uC2DC\uAC04\uD45C");// 현정 수정한 부분 - 나의 시간표로 페이지 넘어가게
 		btn_gototable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Schedule sch = new Schedule();
 				sch.setVisible(true);
-				frame.dispose();
+				// 경준 수정 5/20 아래와 같이 하게되면 현재창 사라지므로 안됨.
+//				frame.dispose();
 			}
 		});
 		btn_gototable.setFont(new Font("굴림", Font.BOLD, 15));
 		btn_gototable.setBounds(348, 9, 137, 23);
-		panel.add(btn_gototable);//현정 수정한 부분
+		panel.add(btn_gototable);// 현정 수정한 부분
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(688, 428, 497, 182);
+		panel_1.setBounds(688, 286, 497, 182);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -343,7 +377,7 @@ public class StuSugangpage {
 							mapConfirm.put("nowPeople", (String) jt.getValueAt(row, 4));
 							mapConfirm.put("maxPeople", (String) jt.getValueAt(row, 5));
 							stuData_confrim.add(mapConfirm);
-							
+
 							// 확정 테이블에 담아줌
 							for (int i = 0; i < stuData_confrim.size(); i++) {
 								for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
@@ -352,65 +386,62 @@ public class StuSugangpage {
 							}
 							model2.setDataVector(contents2, header);
 
-							try {//현정 수정 부분
-								//확정 데이터 txt파일로 출력
-								//출력할때 path방식으로 하면 에러나서, 일단 로컬 경로로 해둠. 나중에 Schedule경로랑 똑같이 맞춰야함.
-								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
+							try {// 현정 수정 부분
+									// 확정 데이터 txt파일로 출력
+									// 출력할때 path방식으로 하면 에러나서, 일단 로컬 경로로 해둠. 나중에 Schedule경로랑 똑같이 맞춰야함.
+								FileOutputStream fos = new FileOutputStream("C:\\Users\\Shin\\Desktop\\student11.txt");
 								OutputStreamWriter osw = new OutputStreamWriter(fos);
 								BufferedWriter bw = new BufferedWriter(osw);
-								
+
 								for (int i = 0; i < stuData_confrim.size(); i++) {
 									for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
 										bw.write(contents2[i][j]);
-										bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
+										bw.write(",");// 나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
 									}
 									bw.newLine();
 								}
-								
-								
+
 								bw.flush();
-								bw.close(); 
-								osw.close(); 
+								bw.close();
+								osw.close();
 								fos.close();
-								
-								
-							}
-							catch(IOException x){
+
+							} catch (IOException x) {
 								x.printStackTrace();
 							}
-							
-							try {
-								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\professor.txt");
-								OutputStreamWriter osw = new OutputStreamWriter(fos);
-								BufferedWriter bw = new BufferedWriter(osw);
-								
-								
-								for (int i = 0; i < stuData_confrim.size(); i++) {
-									for (int j = 0; j < stuData_confrim.get(0).size()+1; j++) {
-										if(j==stuData_confrim.get(0).size()) {
-											Loginpage tempidpw = new Loginpage();
-											bw.write(tempidpw.s_id);
-											bw.write(",");
-										}
-										else {
-											bw.write(contents2[i][j]);
-											bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
-										}
-									}
-									bw.newLine();
-								}
-								
-								
-								bw.flush();
-								bw.close(); 
-								osw.close(); 
-								fos.close();
-								
-								
-							}
-							catch(IOException x){
-								x.printStackTrace();
-							}//file i/o끝
+
+//							try {
+//								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\professor.txt");
+//								OutputStreamWriter osw = new OutputStreamWriter(fos);
+//								BufferedWriter bw = new BufferedWriter(osw);
+//								
+//								
+//								for (int i = 0; i < stuData_confrim.size(); i++) {
+//									for (int j = 0; j < stuData_confrim.get(0).size()+1; j++) {
+//										if(j==stuData_confrim.get(0).size()) {
+//											Loginpage tempidpw = new Loginpage();
+//											bw.write(tempidpw.s_id);
+//											bw.write(",");
+//										}
+//										else {
+//											bw.write(contents2[i][j]);
+//											bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
+//										}
+//									}
+//									bw.newLine();
+//								}
+//								
+//								
+//								bw.flush();
+//								bw.close(); 
+//								osw.close(); 
+//								fos.close();
+//								
+//								
+//							}
+//							catch(IOException x){
+//								x.printStackTrace();
+//							}//file i/o끝
 
 							// jTable도 1 증가시킴
 							if (tempId.equals("aa-01")) {
@@ -426,15 +457,13 @@ public class StuSugangpage {
 							// contents[row][4] = Integer.toString(tempNow + 1);
 
 							JOptionPane.showMessageDialog(null, "신청이 완료되었습니다.");
-							
+
 							/*
-							for (int i = 0; i < mydata.size(); i++) {//현정 수정 부분
-								for (int j = 0; j < mydata.get(0).size(); j++) {
-									professordata[i][j] = contents[i][j];
-								}
-							}//contents가 업데이트 되었으므로, professordata도 업데이트.
-							*/
-							
+							 * for (int i = 0; i < mydata.size(); i++) {//현정 수정 부분 for (int j = 0; j <
+							 * mydata.get(0).size(); j++) { professordata[i][j] = contents[i][j]; }
+							 * }//contents가 업데이트 되었으므로, professordata도 업데이트.
+							 */
+
 						}
 
 					} else {
@@ -473,53 +502,50 @@ public class StuSugangpage {
 								}
 							}
 							model3.setDataVector(contents3, header);
-							
-							try {
-								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\excess.txt");
-								OutputStreamWriter osw = new OutputStreamWriter(fos);
-								BufferedWriter bw = new BufferedWriter(osw);
-								
-								for (int i = 0; i < stuData_wait.size(); i++) {
-									for (int j = 0; j < stuData_wait.get(0).size()+1; j++) {
-										if(j==stuData_wait.get(0).size()) {
-											Loginpage tempidpw = new Loginpage();
-											bw.write(tempidpw.s_id);
-											bw.write(",");
-										}
-										else {
-											bw.write(contents3[i][j]);
-											bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
-										}
-									}
-									bw.newLine();
-								}
-								
-								
-								bw.flush();
-								bw.close(); 
-								osw.close(); 
-								fos.close();
-								
-								
-							}
-							catch(IOException x){
-								x.printStackTrace();
-							}//file i/o끝
+
+//							try {
+//								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\excess.txt");
+//								OutputStreamWriter osw = new OutputStreamWriter(fos);
+//								BufferedWriter bw = new BufferedWriter(osw);
+//								
+//								for (int i = 0; i < stuData_wait.size(); i++) {
+//									for (int j = 0; j < stuData_wait.get(0).size()+1; j++) {
+//										if(j==stuData_wait.get(0).size()) {
+//											Loginpage tempidpw = new Loginpage();
+//											bw.write(tempidpw.s_id);
+//											bw.write(",");
+//										}
+//										else {
+//											bw.write(contents3[i][j]);
+//											bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
+//										}
+//									}
+//									bw.newLine();
+//								}
+//								
+//								
+//								bw.flush();
+//								bw.close(); 
+//								osw.close(); 
+//								fos.close();
+//								
+//								
+//							}
+//							catch(IOException x){
+//								x.printStackTrace();
+//							}//file i/o끝
 						}
-						
 
 					}
 				}
 
 				// j는 4로 고정. 현재인원만 고칠거기 때문임.
 				model.setDataVector(contents, header);
-				
 
 			}
 		});
 
 	}
-	
 
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
