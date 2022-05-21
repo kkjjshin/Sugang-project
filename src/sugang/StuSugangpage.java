@@ -26,8 +26,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.io.*;
 import javax.swing.JComboBox;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -184,9 +186,8 @@ public class StuSugangpage {
 
 		final DefaultTableModel model3 = new DefaultTableModel(contents3, header);
 		
-		//
 		final DefaultTableModel mode2_1 = new DefaultTableModel(contents4, header);
-		//
+		
 		
 
 		final JTable jt = new JTable(model);
@@ -195,9 +196,8 @@ public class StuSugangpage {
 
 		final JTable jt_wait = new JTable(model3);
 		
-		//
 		final JTable professortable = new JTable(mode2_1);
-		//
+		
 
 		scrollPane = new JScrollPane(jt);
 		scrollPane.setBounds(51, 84, 1134, 158);
@@ -297,13 +297,18 @@ public class StuSugangpage {
 		
 		//
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(221, 497, 697, 159);
+		panel_2.setBounds(221, 497, 823, 158);
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
 
 		scrollPane_2.setBounds(107, 19, 485, 130);
 		panel_2.add(scrollPane_2);
+		
+		JButton btn_ok = new JButton("\uC2B9\uC778");
+		btn_ok.setFont(new Font("굴림", Font.BOLD, 17));
+		btn_ok.setBounds(649, 58, 98, 41);
+		panel_2.add(btn_ok);
 		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{scrollPane, jt, lblNewLabel, tf_name, btn_name, lblNewLabel_1, tf_num, btn_num, panel, lblNewLabel_2, scrollPane_1, jt_confirm, btn_gototable, panel_1, lblNewLabel_2_1, scrollPane_1_1, jt_wait, btn_go, btn_reset, lblNewLabel_3, panel_2}));
 		
 		// 조회(이름)
@@ -465,39 +470,6 @@ public class StuSugangpage {
 								x.printStackTrace();
 							}
 
-//							try {
-//								FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\professor.txt");
-//								OutputStreamWriter osw = new OutputStreamWriter(fos);
-//								BufferedWriter bw = new BufferedWriter(osw);
-//								
-//								
-//								for (int i = 0; i < stuData_confrim.size(); i++) {
-//									for (int j = 0; j < stuData_confrim.get(0).size()+1; j++) {
-//										if(j==stuData_confrim.get(0).size()) {
-//											Loginpage tempidpw = new Loginpage();
-//											bw.write(tempidpw.s_id);
-//											bw.write(",");
-//										}
-//										else {
-//											bw.write(contents2[i][j]);
-//											bw.write(",");//나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
-//										}
-//									}
-//									bw.newLine();
-//								}
-//								
-//								
-//								bw.flush();
-//								bw.close(); 
-//								osw.close(); 
-//								fos.close();
-//								
-//								
-//							}
-//							catch(IOException x){
-//								x.printStackTrace();
-//							}//file i/o끝
-
 							// jTable도 1 증가시킴
 							if (tempId.equals("aa-01")) {
 								contents[0][4] = Integer.toString(tempNow + 1);
@@ -564,7 +536,6 @@ public class StuSugangpage {
 							for (int i = 0; i < proData_wait.size(); i++) {
 								for (int j = 0; j < proData_wait.get(0).size(); j++) {
 									contents4[i][j] = (String) proData_wait.get(i).get(arr_key[j]);
-									System.out.println(contents4[i][j]);
 								}
 							}
 							
@@ -614,6 +585,125 @@ public class StuSugangpage {
 				model.setDataVector(contents, header);
 
 			}
+		});
+		
+		btn_ok.addActionListener(new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+				
+				int row = professortable.getSelectedRow();
+				
+
+				if (row == -1) {
+					JOptionPane.showMessageDialog(null, "강의를 선택해주세요");
+				} else {
+						String tempId = (String) professortable.getValueAt(row, 0); // 학수번호
+						String tempTime = (String) professortable.getValueAt(row, 3); // 시간
+						//System.out.println("tempID: " + tempId);
+						//allLecture.setNum(tempId); // 데이터 1 증가 시킴
+						
+						int check_confrim = 0;
+
+						// 같은 강의 있는지 체크 (학수번호로 체크)
+						for (int i = 0; i < mydata.size(); i++) {
+							for (int j = 0; j < mydata.get(0).size(); j++) {
+								if (contents2[i][j].equals(tempId)) {
+									System.out.println("대기tempID: " + tempId);
+									System.out.println(contents2[i][j]);
+									
+									JOptionPane.showMessageDialog(null, "이미 신청한 과목입니다.");
+									check_confrim = 1;
+									break;
+								}
+
+								else if (contents2[i][j].equals(tempTime)) {
+									JOptionPane.showMessageDialog(null, "같은 시간대에는 신청할 수 없습니다.");
+									check_confrim = 1;
+									break;
+								}
+							}
+						}
+
+						Map<String, Object> mapupdate = new HashMap<String, Object>();
+						mapupdate.put("numLecture", (String) professortable.getValueAt(row, 0));
+						mapupdate.put("nameLecture", (String) professortable.getValueAt(row, 1));
+						mapupdate.put("nameProf", (String) professortable.getValueAt(row, 2));
+						mapupdate.put("timeLecture", (String) professortable.getValueAt(row, 3));
+						mapupdate.put("nowPeople", (String) professortable.getValueAt(row, 4));
+						mapupdate.put("maxPeople", (String) professortable.getValueAt(row, 5));
+						stuData_confrim.add(mapupdate);
+						stuData_wait.remove(mapupdate);
+						proData_wait.remove(mapupdate);
+						
+						if(check_confrim ==0 ) {
+							
+							//왜안될까 왜안될까
+							//대기 테이블 삭제
+							System.out.println("contents3");
+							for (int i = 0; i < stuData_wait.size(); i++) {
+								for (int j = 0; j < stuData_wait.get(0).size(); j++) {
+									contents3[i][j] = (String) stuData_wait.get(i).get(arr_key[j]);
+									System.out.println(contents3[i][j]);
+								}
+							}
+							model3.setDataVector(contents3, header);
+							
+							
+							System.out.println("contents4");
+							for (int i = 0; i < proData_wait.size(); i++) {
+								for (int j = 0; j < proData_wait.get(0).size(); j++) {
+									contents4[i][j] = (String) proData_wait.get(i).get(arr_key[j]);
+									System.out.println(contents4[i][j]);
+								}
+							}
+							mode2_1.setDataVector(contents4, header);
+							professortable.repaint();
+							
+							System.out.println("contents2");
+							// 확정 테이블에 담아줌
+							for (int i = 0; i < stuData_confrim.size(); i++) {
+								for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
+									contents2[i][j] = (String) stuData_confrim.get(i).get(arr_key[j]);
+									System.out.println(contents2[i][j]);
+								}
+							}
+							model2.setDataVector(contents2, header);
+							
+							JOptionPane.showMessageDialog(null, "승인이 완료되었습니다.");	
+						}
+						
+
+						try {// 현정 수정 부분
+								// 확정 데이터 txt파일로 출력
+								//ScheduleData경로랑 똑같이 맞추기.
+							FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
+							OutputStreamWriter osw = new OutputStreamWriter(fos);
+							BufferedWriter bw = new BufferedWriter(osw);
+
+							for (int i = 0; i < stuData_confrim.size(); i++) {
+								for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
+									bw.write(contents2[i][j]);
+									bw.write(",");// 나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
+								}
+								bw.newLine();
+							}
+
+							bw.flush();
+							bw.close();
+							osw.close();
+							fos.close();
+
+						} catch (IOException x) {
+							x.printStackTrace();
+						}
+					
+	
+
+				} 
+
+			}
+			
+			
 		});
 
 	}
