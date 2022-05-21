@@ -130,6 +130,7 @@ public class StuSugangpage {
 		// 가지고 온 데이터 contents 배열에 담아주기
 		final String[][] contents = new String[mydata.size()][mydata.get(0).size()];
 		final String[] arr_key = { "numLecture", "nameLecture", "nameProf", "timeLecture", "nowPeople", "maxPeople" };
+		
 		for (int i = 0; i < mydata.size(); i++) {
 			for (int j = 0; j < mydata.get(0).size(); j++) {
 				contents[i][j] = (String) mydata.get(i).get(arr_key[j]);
@@ -152,7 +153,6 @@ public class StuSugangpage {
 			}
 		}
 		
-		//
 		final String[][] contents4 = new String[mydata.size()][mydata.get(0).size()];
 
 		for (int i = 0; i < mydata.size(); i++) {
@@ -161,6 +161,8 @@ public class StuSugangpage {
 				contents4[i][j] = " ";
 			}
 		}
+
+		
 		//
 		/*
 		 * String[][] professordata = new String[10][100];//현정 수정 부분 - 최대 강의 10개에 학생
@@ -302,18 +304,7 @@ public class StuSugangpage {
 
 		scrollPane_2.setBounds(107, 19, 485, 130);
 		panel_2.add(scrollPane_2);
-		//
-		
-		final JComboBox comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"\uAD50\uC2181", "\uAD50\uC2182", "\uAD50\uC2183"}));
-		comboBox.setToolTipText("");
-		comboBox.setBounds(67, 577, 95, 26);
-		frame.getContentPane().add(comboBox);
-		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{scrollPane, jt, lblNewLabel, tf_name, btn_name, lblNewLabel_1, tf_num, btn_num, panel, lblNewLabel_2, scrollPane_1, jt_confirm, btn_gototable, panel_1, lblNewLabel_2_1, scrollPane_1_1, jt_wait, btn_go, btn_reset, lblNewLabel_3, panel_2, comboBox}));
+		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{scrollPane, jt, lblNewLabel, tf_name, btn_name, lblNewLabel_1, tf_num, btn_num, panel, lblNewLabel_2, scrollPane_1, jt_confirm, btn_gototable, panel_1, lblNewLabel_2_1, scrollPane_1_1, jt_wait, btn_go, btn_reset, lblNewLabel_3, panel_2}));
 		
 		// 조회(이름)
 		btn_name.addActionListener(new ActionListener() {
@@ -558,14 +549,8 @@ public class StuSugangpage {
 							mapWait.put("nowPeople", (String) jt.getValueAt(row, 4));
 							mapWait.put("maxPeople", (String) jt.getValueAt(row, 5));
 							stuData_wait.add(mapWait);
-							//
-							if((String) comboBox.getSelectedItem()=="교수1") {//다른 교수 이름이로도 되게 수정
-								String getname = (String) jt.getValueAt(row, 2);
-								System.out.println(getname);
-								System.out.println((String) comboBox.getSelectedItem());
-									proData_wait.add(mapWait);
-							}
-							//
+							proData_wait.add(mapWait);
+
 							
 							// 대기 테이블에 담아줌
 							for (int i = 0; i < stuData_wait.size(); i++) {
@@ -575,14 +560,18 @@ public class StuSugangpage {
 							}
 							model3.setDataVector(contents3, header);
 							
-							//
+							
 							for (int i = 0; i < proData_wait.size(); i++) {
 								for (int j = 0; j < proData_wait.get(0).size(); j++) {
 									contents4[i][j] = (String) proData_wait.get(i).get(arr_key[j]);
+									System.out.println(contents4[i][j]);
 								}
 							}
+							
 							mode2_1.setDataVector(contents4, header);
-							//
+							
+							
+							
 							
 							//
 //							try {
