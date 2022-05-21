@@ -186,9 +186,8 @@ public class StuSugangpage {
 
 		final DefaultTableModel model3 = new DefaultTableModel(contents3, header);
 		
-		//
 		final DefaultTableModel mode2_1 = new DefaultTableModel(contents4, header);
-		//
+		
 		
 
 		final JTable jt = new JTable(model);
@@ -197,9 +196,8 @@ public class StuSugangpage {
 
 		final JTable jt_wait = new JTable(model3);
 		
-		//
 		final JTable professortable = new JTable(mode2_1);
-		//
+		
 
 		scrollPane = new JScrollPane(jt);
 		scrollPane.setBounds(51, 84, 1134, 158);
@@ -639,18 +637,19 @@ public class StuSugangpage {
 						
 						if(check_confrim ==0 ) {
 							
+							//왜안될까 왜안될까
 							//대기 테이블 삭제
-							System.out.println("?");
+							System.out.println("contents3");
 							for (int i = 0; i < stuData_wait.size(); i++) {
 								for (int j = 0; j < stuData_wait.get(0).size(); j++) {
 									contents3[i][j] = (String) stuData_wait.get(i).get(arr_key[j]);
 									System.out.println(contents3[i][j]);
-									
 								}
 							}
 							model3.setDataVector(contents3, header);
 							
-							//관리자 테이블 삭제
+							
+							System.out.println("contents4");
 							for (int i = 0; i < proData_wait.size(); i++) {
 								for (int j = 0; j < proData_wait.get(0).size(); j++) {
 									contents4[i][j] = (String) proData_wait.get(i).get(arr_key[j]);
@@ -658,11 +657,14 @@ public class StuSugangpage {
 								}
 							}
 							mode2_1.setDataVector(contents4, header);
+							professortable.repaint();
 							
+							System.out.println("contents2");
 							// 확정 테이블에 담아줌
 							for (int i = 0; i < stuData_confrim.size(); i++) {
 								for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
 									contents2[i][j] = (String) stuData_confrim.get(i).get(arr_key[j]);
+									System.out.println(contents2[i][j]);
 								}
 							}
 							model2.setDataVector(contents2, header);
