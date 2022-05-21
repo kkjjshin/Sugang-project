@@ -164,20 +164,6 @@ public class StuSugangpage {
 			}
 		}
 
-		
-		//
-		/*
-		 * String[][] professordata = new String[10][100];//현정 수정 부분 - 최대 강의 10개에 학생
-		 * 100명으로 배열생성
-		 * 
-		 * for (int i = 0; i < 10; i++) { for (int j = 0; j < 100; j++) {
-		 * professordata[i][j] = null; } }
-		 * 
-		 * for (int i = 0; i < mydata.size(); i++) { for (int j = 0; j <
-		 * mydata.get(0).size(); j++) { professordata[i][j] = contents[i][j]; }
-		 * }//professordata에 contents와 똑같이 넣고, 나머지는 null로 초기화
-		 */
-
 		final String header[] = { "학수번호", "과목명", "담당교수", "시간", "현재인원", "정원" };
 
 		final DefaultTableModel model = new DefaultTableModel(contents, header);
@@ -186,7 +172,7 @@ public class StuSugangpage {
 
 		final DefaultTableModel model3 = new DefaultTableModel(contents3, header);
 		
-		final DefaultTableModel mode2_1 = new DefaultTableModel(contents4, header);
+		final DefaultTableModel model2_1 = new DefaultTableModel(contents4, header);
 		
 		
 
@@ -196,7 +182,7 @@ public class StuSugangpage {
 
 		final JTable jt_wait = new JTable(model3);
 		
-		final JTable professortable = new JTable(mode2_1);
+		final JTable jt_manager = new JTable(model2_1);
 		
 
 		scrollPane = new JScrollPane(jt);
@@ -206,9 +192,8 @@ public class StuSugangpage {
 
 		JScrollPane scrollPane_1_1 = new JScrollPane(jt_wait);
 		
-		//
-		JScrollPane scrollPane_2 = new JScrollPane(professortable);
-		//
+		JScrollPane scrollPane_2 = new JScrollPane(jt_manager);
+		
 		
 
 		frame.getContentPane().add(scrollPane);
@@ -539,7 +524,7 @@ public class StuSugangpage {
 								}
 							}
 							
-							mode2_1.setDataVector(contents4, header);
+							model2_1.setDataVector(contents4, header);
 							
 							
 							
@@ -591,14 +576,14 @@ public class StuSugangpage {
 		
 			public void actionPerformed(ActionEvent e) {
 				
-				int row = professortable.getSelectedRow();
+				int row = jt_manager.getSelectedRow();
 				
 
 				if (row == -1) {
 					JOptionPane.showMessageDialog(null, "강의를 선택해주세요");
 				} else {
-						String tempId = (String) professortable.getValueAt(row, 0); // 학수번호
-						String tempTime = (String) professortable.getValueAt(row, 3); // 시간
+						String tempId = (String) jt_manager.getValueAt(row, 0); // 학수번호
+						String tempTime = (String) jt_manager.getValueAt(row, 3); // 시간
 						//System.out.println("tempID: " + tempId);
 						//allLecture.setNum(tempId); // 데이터 1 증가 시킴
 						
@@ -625,46 +610,56 @@ public class StuSugangpage {
 						}
 
 						Map<String, Object> mapupdate = new HashMap<String, Object>();
-						mapupdate.put("numLecture", (String) professortable.getValueAt(row, 0));
-						mapupdate.put("nameLecture", (String) professortable.getValueAt(row, 1));
-						mapupdate.put("nameProf", (String) professortable.getValueAt(row, 2));
-						mapupdate.put("timeLecture", (String) professortable.getValueAt(row, 3));
-						mapupdate.put("nowPeople", (String) professortable.getValueAt(row, 4));
-						mapupdate.put("maxPeople", (String) professortable.getValueAt(row, 5));
+						mapupdate.put("numLecture", (String) jt_manager.getValueAt(row, 0));
+						mapupdate.put("nameLecture", (String) jt_manager.getValueAt(row, 1));
+						mapupdate.put("nameProf", (String) jt_manager.getValueAt(row, 2));
+						mapupdate.put("timeLecture", (String) jt_manager.getValueAt(row, 3));
+						mapupdate.put("nowPeople", (String) jt_manager.getValueAt(row, 4));
+						mapupdate.put("maxPeople", (String) jt_manager.getValueAt(row, 5));
 						stuData_confrim.add(mapupdate);
 						stuData_wait.remove(mapupdate);
 						proData_wait.remove(mapupdate);
 						
 						if(check_confrim ==0 ) {
 							
-							//왜안될까 왜안될까
-							//대기 테이블 삭제
-							System.out.println("contents3");
+							
+							//대기 및 관리자 테이블 초기화
+							for (int i = 0; i < mydata.size(); i++) {
+								for (int j = 0; j < mydata.get(0).size(); j++) {
+									contents3[i][j] = " ";
+								}
+							}
+							
+							for (int i = 0; i < mydata.size(); i++) {
+								for (int j = 0; j < mydata.get(0).size(); j++) {
+									
+									contents4[i][j] = " ";
+								}
+							}
+							
+							//대기 및 관리자 테이블에 바뀐 데이터 넣기
 							for (int i = 0; i < stuData_wait.size(); i++) {
 								for (int j = 0; j < stuData_wait.get(0).size(); j++) {
 									contents3[i][j] = (String) stuData_wait.get(i).get(arr_key[j]);
-									System.out.println(contents3[i][j]);
 								}
 							}
 							model3.setDataVector(contents3, header);
 							
 							
-							System.out.println("contents4");
+	
 							for (int i = 0; i < proData_wait.size(); i++) {
 								for (int j = 0; j < proData_wait.get(0).size(); j++) {
 									contents4[i][j] = (String) proData_wait.get(i).get(arr_key[j]);
-									System.out.println(contents4[i][j]);
 								}
 							}
-							mode2_1.setDataVector(contents4, header);
-							professortable.repaint();
+							model2_1.setDataVector(contents4, header);
+							jt_manager.repaint();
 							
-							System.out.println("contents2");
+
 							// 확정 테이블에 담아줌
 							for (int i = 0; i < stuData_confrim.size(); i++) {
 								for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
 									contents2[i][j] = (String) stuData_confrim.get(i).get(arr_key[j]);
-									System.out.println(contents2[i][j]);
 								}
 							}
 							model2.setDataVector(contents2, header);

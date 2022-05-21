@@ -155,7 +155,6 @@ public class Schedule extends JFrame {
 		contentPane.add(btnNewButton);
 		//gui구성 끝
 		
-		//고쳐야 할 부분 : 돌아가기 하면 학생 수강 데이터가 삭제가 되는 것 같음. 
 		
 	}
 }

@@ -1,3 +1,4 @@
+/*
 package sugang;
 
 import java.awt.BorderLayout;
@@ -25,20 +26,11 @@ public class ProfessorPage extends JFrame {
 	private JTextField textField;
 	private JTable table_1;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		
 		StuSugangpage prodata = new StuSugangpage();
 		
-		/*
-		for(int i=0; i<prodata.professordata.length; i++) {
-			for(int j=0; j<prodata.professordata[0].length;j++) {
-				System.out.println(prodata.professordata[i][j]);
-			}
-		}
-		*/
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,9 +45,6 @@ public class ProfessorPage extends JFrame {
 	}
 
 	 
-	/**
-	 * Create the frame.
-	 */
 	 
 	 
 	public ProfessorPage() {
@@ -120,3 +109,4 @@ public class ProfessorPage extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 }
+*/
