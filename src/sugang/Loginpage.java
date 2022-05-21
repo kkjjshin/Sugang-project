@@ -146,9 +146,11 @@ public class Loginpage {
 				}
 
 				// 화면 전환
+				/*
 				ProfessorPage g = new ProfessorPage();
 				g.setVisible(true);
 				frame.dispose();
+				*/
 
 			}
 
