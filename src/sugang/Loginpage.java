@@ -20,6 +20,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Panel;
+import javax.swing.ImageIcon;
 
 public class Loginpage implements Login {
 
@@ -73,15 +75,15 @@ public class Loginpage implements Login {
 		panel.setLayout(null);
 
 		final JLabel lbid = new JLabel("ID");
+		lbid.setBounds(63, 62, 101, 31);
 		lbid.setFont(new Font("08서울남산체 L", Font.BOLD, 18));
 		lbid.setHorizontalAlignment(SwingConstants.CENTER);
-		lbid.setBounds(63, 62, 101, 31);
 		panel.add(lbid);
 
 		JLabel lbpw = new JLabel("PW");
+		lbpw.setBounds(63, 152, 101, 31);
 		lbpw.setHorizontalAlignment(SwingConstants.CENTER);
 		lbpw.setFont(new Font("08서울남산체 L", Font.BOLD, 18));
-		lbpw.setBounds(63, 152, 101, 31);
 		panel.add(lbpw);
 
 		tf_id = new JTextField();
@@ -94,24 +96,30 @@ public class Loginpage implements Login {
 		panel.add(tf_pw);
 
 		JLabel lblNewLabel = new JLabel("\uC131\uADE0\uAD00\uB300\uD559\uAD50 \uC218\uAC15\uC2E0\uCCAD");
+		lblNewLabel.setBounds(196, 10, 283, 31);
 		lblNewLabel.setFont(new Font("08서울남산체 M", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(196, 10, 283, 31);
 		panel.add(lblNewLabel);
 
 		JButton btn_login = new JButton("\uB85C\uADF8\uC778");
+		btn_login.setBounds(301, 233, 91, 23);
 		btn_login.setBackground(new Color(255, 250, 250));
 		btn_login.setFont(new Font("08서울남산체 M", Font.BOLD, 15));
-		btn_login.setBounds(301, 233, 91, 23);
 		panel.add(btn_login);
 
 		comboBox = new JComboBox();
+		comboBox.setBounds(575, 36, 82, 25);
 		comboBox.setFont(new Font("08서울남산체 M", Font.BOLD, 15));
 		comboBox.setForeground(new Color(0, 0, 0));
 		comboBox.setBackground(new Color(154, 205, 50));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "\uAD50\uC218", "\uD559\uC0DD" }));
-		comboBox.setBounds(575, 36, 82, 25);
 		panel.add(comboBox);
+		
+		JButton imgbtn = new JButton("");
+		imgbtn.setBounds(42, 169, 174, 138);
+		panel.add(imgbtn);
+		imgbtn.setIcon(new ImageIcon(Loginpage.class.getResource("/imgfile/Emblem_01.png")));
+		imgbtn.setFont(new Font("굴림", Font.PLAIN, 13));
 
 		btn_login.addActionListener(new ActionListener() {
 
