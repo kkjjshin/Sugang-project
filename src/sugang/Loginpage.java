@@ -137,7 +137,7 @@ public class Loginpage implements Login {
 				s.setVisible(true);
 				frame.dispose();
 			} else {
-				JOptionPane.showMessageDialog(null, "아0이디와 패스워드를 확인하세요");
+				JOptionPane.showMessageDialog(null, "아이디와 패스워드를 확인하세요");
 			}
 		}
 		// 교수일 경우, 교수페이지로 이동
