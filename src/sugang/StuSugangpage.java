@@ -347,8 +347,8 @@ public class StuSugangpage implements Sugang {
 			for (int i = 0; i < mydata.size(); i++) {
 				for (int j = 0; j < mydata.get(0).size(); j++) {
 					if (contents2[i][j].equals(tempId)) {
-						System.out.println("대기tempID: " + tempId);
-						System.out.println(contents2[i][j]);
+						//System.out.println("대기tempID: " + tempId);
+						//System.out.println(contents2[i][j]);
 
 						JOptionPane.showMessageDialog(null, "이미 신청한 과목입니다.");
 						check_confrim = 1;
@@ -375,8 +375,14 @@ public class StuSugangpage implements Sugang {
 			proData_wait.remove(mapupdate);
 
 			if (check_confrim == 0) {
+				
+				//확정,대기,관리자 테이블  초기화
+				for (int i = 0; i < mydata.size(); i++) {
+					for (int j = 0; j < mydata.get(0).size(); j++) {
+						contents2[i][j] = " ";
+					}
+				}
 
-				// 대기 및 관리자 테이블 초기화
 				for (int i = 0; i < mydata.size(); i++) {
 					for (int j = 0; j < mydata.get(0).size(); j++) {
 						contents3[i][j] = " ";
@@ -385,7 +391,6 @@ public class StuSugangpage implements Sugang {
 
 				for (int i = 0; i < mydata.size(); i++) {
 					for (int j = 0; j < mydata.get(0).size(); j++) {
-
 						contents4[i][j] = " ";
 					}
 				}
@@ -404,43 +409,45 @@ public class StuSugangpage implements Sugang {
 					}
 				}
 				model2_1.setDataVector(contents4, header);
-				jt_manager.repaint();
 
 				// 확정 테이블에 담아줌
 				for (int i = 0; i < stuData_confrim.size(); i++) {
 					for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
 						contents2[i][j] = (String) stuData_confrim.get(i).get(arr_key[j]);
+						System.out.println(contents2[i][j]);
 					}
 				}
 				model2.setDataVector(contents2, header);
+			
 
+				try {// 현정 수정 부분
+						// 확정 데이터 txt파일로 출력
+						// ScheduleData경로랑 똑같이 맞추기.
+					FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
+					OutputStreamWriter osw = new OutputStreamWriter(fos);
+					BufferedWriter bw = new BufferedWriter(osw);
+					
+					System.out.println("contents2시작");//test
+					for (int i = 0; i < stuData_confrim.size(); i++) {
+						for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
+							System.out.println(contents2[i][j]);//test
+							bw.write(contents2[i][j]);
+							bw.write(",");// 나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
+						}
+						bw.newLine();
+					}
+					System.out.println("contents2끝");//test
+					bw.flush();
+					bw.close();
+					osw.close();
+					fos.close();
+	
+				} catch (IOException x) {
+					x.printStackTrace();
+				}
+				
 				JOptionPane.showMessageDialog(null, "승인이 완료되었습니다.");
 			}
-
-			try {// 현정 수정 부분
-					// 확정 데이터 txt파일로 출력
-					// ScheduleData경로랑 똑같이 맞추기.
-				FileOutputStream fos = new FileOutputStream("C:\\Users\\Shin\\Desktop\\student.txt");
-				OutputStreamWriter osw = new OutputStreamWriter(fos);
-				BufferedWriter bw = new BufferedWriter(osw);
-
-				for (int i = 0; i < stuData_confrim.size(); i++) {
-					for (int j = 0; j < stuData_confrim.get(0).size(); j++) {
-						bw.write(contents2[i][j]);
-						bw.write(",");// 나중에 읽어올때 구분위해서(split이용해 ,기준으로 구분)
-					}
-					bw.newLine();
-				}
-
-				bw.flush();
-				bw.close();
-				osw.close();
-				fos.close();
-
-			} catch (IOException x) {
-				x.printStackTrace();
-			}
-
 		}
 	}
 
@@ -554,6 +561,13 @@ public class StuSugangpage implements Sugang {
 					mapConfirm.put("nowPeople", (String) jt.getValueAt(row, 4));
 					mapConfirm.put("maxPeople", (String) jt.getValueAt(row, 5));
 					stuData_confrim.add(mapConfirm);
+					
+					//확정 테이블 다시 초기화해주기
+					for (int i = 0; i < mydata.size(); i++) {
+						for (int j = 0; j < mydata.get(0).size(); j++) {
+							contents2[i][j] = " ";
+						}
+					}
 
 					// 확정 테이블에 담아줌
 					for (int i = 0; i < stuData_confrim.size(); i++) {
@@ -563,10 +577,11 @@ public class StuSugangpage implements Sugang {
 					}
 					model2.setDataVector(contents2, header);
 
+
 					try {// 현정 수정 부분
 							// 확정 데이터 txt파일로 출력
 							// ScheduleData경로랑 똑같이 맞추기.
-						FileOutputStream fos = new FileOutputStream("C:\\Users\\Shin\\Desktop\\student.txt");
+						FileOutputStream fos = new FileOutputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
 						OutputStreamWriter osw = new OutputStreamWriter(fos);
 						BufferedWriter bw = new BufferedWriter(osw);
 
