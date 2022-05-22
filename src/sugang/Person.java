@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-//없애기
-public class Professor {
-	//교수 추상 클래스
-	
-		
+public class Person {
+	//부모클래스
+	List<Map<String, Object>> confirmList = new ArrayList<Map<String, Object>>(); //확정과목
 	List<Map<String, Object>> waitList = new ArrayList<Map<String, Object>>(); //대기과목
 }
-
