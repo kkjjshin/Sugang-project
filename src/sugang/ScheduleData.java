@@ -19,7 +19,7 @@ public class ScheduleData {
 			InputStream fis = new FileInputStream(path+"student1.txt");
 			*/
 			//실행 전 경로 설정해주기
-			InputStream fis = new FileInputStream("C:\\Users\\wer56\\OneDrive\\문서\\student.txt");
+			InputStream fis = new FileInputStream("C:\\Users\\Shin\\Desktop\\student.txt");
 			InputStreamReader isr = new InputStreamReader(fis);
 			br = new BufferedReader(isr);
 			
