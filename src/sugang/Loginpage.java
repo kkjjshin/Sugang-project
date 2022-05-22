@@ -75,19 +75,19 @@ public class Loginpage implements Login {
 		panel.setLayout(null);
 
 		final JLabel lbid = new JLabel("ID");
-		lbid.setBounds(63, 62, 101, 31);
+		lbid.setBounds(97, 84, 101, 31);
 		lbid.setFont(new Font("08서울남산체 L", Font.BOLD, 18));
 		lbid.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lbid);
 
 		JLabel lbpw = new JLabel("PW");
-		lbpw.setBounds(63, 152, 101, 31);
+		lbpw.setBounds(97, 152, 101, 31);
 		lbpw.setHorizontalAlignment(SwingConstants.CENTER);
 		lbpw.setFont(new Font("08서울남산체 L", Font.BOLD, 18));
 		panel.add(lbpw);
 
 		tf_id = new JTextField();
-		tf_id.setBounds(196, 67, 330, 25);
+		tf_id.setBounds(196, 89, 330, 25);
 		panel.add(tf_id);
 		tf_id.setColumns(10);
 
@@ -115,12 +115,15 @@ public class Loginpage implements Login {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "\uAD50\uC218", "\uD559\uC0DD" }));
 		panel.add(comboBox);
 		
+		//이미지 넣기
 		JButton imgbtn = new JButton("");
-		imgbtn.setBounds(42, 169, 174, 138);
+		imgbtn.setBounds(12, 10, 91, 75);
 		panel.add(imgbtn);
-		imgbtn.setIcon(new ImageIcon(Loginpage.class.getResource("/imgfile/Emblem_01.png")));
+		imgbtn.setIcon(new ImageIcon(Loginpage.class.getResource("/imgfile/Emblem.png")));
 		imgbtn.setFont(new Font("굴림", Font.PLAIN, 13));
-
+		imgbtn.setBorderPainted(false);
+		//이미지 넣기 끝
+		
 		btn_login.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
