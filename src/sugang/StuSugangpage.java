@@ -35,6 +35,7 @@ import javax.swing.JComboBox;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.border.BevelBorder;
 
 public class StuSugangpage implements Sugang {
@@ -155,7 +156,7 @@ public class StuSugangpage implements Sugang {
 		jt_manager = new JTable(model2_1);
 
 		scrollPane = new JScrollPane(jt);
-		scrollPane.setBounds(51, 84, 1134, 158);
+		scrollPane.setBounds(51, 95, 1134, 158);
 
 		JScrollPane scrollPane_1 = new JScrollPane(jt_confirm);
 
@@ -167,16 +168,16 @@ public class StuSugangpage implements Sugang {
 
 		JLabel lblNewLabel = new JLabel("\uACFC\uBAA9\uBA85");
 		lblNewLabel.setFont(new Font("08서울남산체 M", Font.BOLD, 15));
-		lblNewLabel.setBounds(190, 32, 50, 26);
+		lblNewLabel.setBounds(280, 32, 50, 26);
 		frame.getContentPane().add(lblNewLabel);
 
 		tf_name = new JTextField();
-		tf_name.setBounds(240, 35, 188, 21);
+		tf_name.setBounds(331, 36, 188, 21);
 		frame.getContentPane().add(tf_name);
 		tf_name.setColumns(10);
 
 		JButton btn_name = new JButton("\uC870\uD68C");
-		btn_name.setBounds(448, 34, 62, 23);
+		btn_name.setBounds(531, 35, 62, 23);
 		frame.getContentPane().add(btn_name);
 
 		JLabel lblNewLabel_1 = new JLabel("\uD559\uC218\uBC88\uD638");
@@ -194,7 +195,7 @@ public class StuSugangpage implements Sugang {
 		frame.getContentPane().add(btn_num);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(51, 263, 497, 182);
+		panel.setBounds(51, 277, 497, 182);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -219,7 +220,7 @@ public class StuSugangpage implements Sugang {
 		panel.add(btn_gototable);// 현정 수정한 부분
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(688, 263, 497, 182);
+		panel_1.setBounds(688, 277, 497, 182);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -238,7 +239,7 @@ public class StuSugangpage implements Sugang {
 
 		JButton btn_reset = new JButton("\uCD08\uAE30\uD654");
 		btn_reset.setFont(new Font("08서울남산체 M", Font.BOLD, 19));
-		btn_reset.setBounds(51, 32, 90, 26);
+		btn_reset.setBounds(134, 30, 90, 26);
 		frame.getContentPane().add(btn_reset);
 
 		JLabel lblNewLabel_3 = new JLabel("\uAD00\uB9AC\uC790");
@@ -264,6 +265,13 @@ public class StuSugangpage implements Sugang {
 						new Component[] { scrollPane, jt, lblNewLabel, tf_name, btn_name, lblNewLabel_1, tf_num,
 								btn_num, panel, lblNewLabel_2, scrollPane_1, jt_confirm, btn_gototable, panel_1,
 								lblNewLabel_2_1, scrollPane_1_1, jt_wait, btn_go, btn_reset, lblNewLabel_3, panel_2 }));
+		
+		JButton imgbtn = new JButton("");
+		imgbtn.setBounds(12, 10, 91, 75);
+		frame.getContentPane().add(imgbtn);
+		imgbtn.setIcon(new ImageIcon(Loginpage.class.getResource("/imgfile/Emblem.png")));
+		imgbtn.setFont(new Font("굴림", Font.PLAIN, 13));
+		imgbtn.setBorderPainted(false);
 
 		// -------------------------------------버튼클릭이벤트------------------------------------------------------------------------------
 
